@@ -69,3 +69,21 @@ function bigNum(str) {
   }
   console.log(biggest);
 }
+// 멘토님 풀이 반복문
+function bigNum(str) {
+  let biggest = Number(str[0]);
+
+  for (let i = 1; i < str.length; i++) {
+    let num = Number(str[i]);
+    if (num > biggest) {
+      biggest = num;
+    }
+  }
+  return biggest;
+}
+
+// 멘토님 풀이 Math.max() + 스프레드 연산자
+function bigNum(str) {
+  str = str.split("");
+  console.log(Math.max(...str));
+}
