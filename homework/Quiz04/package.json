@@ -1,0 +1,17 @@
+{
+  "name": "Quiz04",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start:dev1": "nodemon index1.js",
+    "start:dev2": "nodemon index2.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.21",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2"
+  }
+}
