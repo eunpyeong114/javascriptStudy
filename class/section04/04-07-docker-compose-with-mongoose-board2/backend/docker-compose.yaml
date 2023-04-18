@@ -1,0 +1,22 @@
+version: "3.7"
+
+# 컴퓨터들(s)
+services:
+  # 컴퓨터 이름
+  my-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./index.js:/myfolder/index.js
+      - ./email.js:/myfolder/email.js # 앞의 주소는 내 로컬 : 뒤 번호는 도커
+      #- ./src:/myfolder/src src폴더 만들고 내부에 적용할 소스파일 다 넣고 폴더 자체를 등록할 수도 있음
+    ports:
+      - 4000:4000
+
+  # 컴퓨터 이름
+  my-database:
+    image: mongo:5
+    ports:
+      - 27017:27017 #=> 몽고 DB 컴패스에서는 접속이 안됨
+    #                => 하지만, docker-compose 로 묶인 컴퓨터 간에는 네임리졸류션 기능으로 express에서는 접속 됨

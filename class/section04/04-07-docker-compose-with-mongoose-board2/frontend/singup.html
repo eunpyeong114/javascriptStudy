@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>회원가입 연습하기</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    >
+    <!-- 위 주소에서 다운받아와서 window에 axios가 저장이 됨 -->
+    <!-- 윈도우란 모든 명령어 앞에 생략되어 있다고 보면 됨 예) window.alert() / 콘솔로그에 window 검색하면 나옴 -->
+    <script>
+      function zzz() {
+        // 1. 입력한 휴대폰번호 가져오기
+        const myphone = document.getElementById("qqq").value;
+        console.log("나의 핸드폰 번호: ", myphone);
+        // 2. 해당 휴대폰 번호를 qqq에 담아서 인증번호 API 요청하기(fetch or axios 등 사용)
+        axios
+          .post("http://localhost:3000/tokens/phone", {
+            //  'http://백엔드 IP 주소:port number/tokens/phones'
+            qqq: myphone,
+            // 요청바디 qqq에 핸드폰 번호 넣어서 넘겨주기
+          })
+          .then((res) => {
+            console.log(res.data);
+            // 응답의 결과를 받는 부분
+            document.getElementById("result").innerText = res.data;
+            // 인증상태 -> 인증완료로 바꿔줌
+          });
+      }
+    </script>
+  </head>
+  <body>
+    휴대폰 번호: <input id="qqq" type="text" />
+    <button onclick="zzz()">인증하기</button>
+    <div id="result">인증상태</div>
+    <button>회원가입하기</button>
+  </body>
+</html>

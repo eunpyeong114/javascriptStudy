@@ -33,7 +33,7 @@ export class Ticketing {
 
   @JoinTable()
   @ManyToMany(() => Seat, (seat) => seat.ticketing)
-  seat: Seat;
+  seat: Seat[];
 
   @ManyToOne(() => MovieSchedule)
   movieSchedule: MovieSchedule;

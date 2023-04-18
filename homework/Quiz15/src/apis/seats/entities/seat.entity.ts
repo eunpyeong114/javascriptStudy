@@ -17,7 +17,7 @@ export class Seat {
   name: string;
 
   @ManyToMany(() => Ticketing, (ticketing) => ticketing.seat)
-  ticketing: Ticketing;
+  ticketing: Ticketing[];
 
   @ManyToOne(() => MovieRoom)
   movieRoom: MovieRoom;

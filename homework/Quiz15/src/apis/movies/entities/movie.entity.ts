@@ -31,7 +31,7 @@ export class Movie {
   @Column()
   time: string;
 
-  @Column({ type: 'decimal', precision: 2, scale: 2 })
+  @Column({ type: 'decimal', precision: 2, scale: 1 })
   grade: number;
 
   @Column()

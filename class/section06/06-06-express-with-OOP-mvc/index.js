@@ -1,0 +1,13 @@
+import express from "express";
+import { ProductController } from "./mvc/controllers/product.controller.js";
+const app = express();
+
+// 상품 API
+const productController = new ProductController();
+app.post("/products/buy", productController.buyProduct); // 상품 구매하기 API
+// 함수 일단 실행되지 않게 ()는 빼고 작성 buyProduct 실행은 API요청이 들어왔을 때 해야하기 때문에 연결만 해줌
+app.post("/products/refund", productController.refundProduct); // 상품 환불하기 API
+
+// 게시판 API
+// app.get("/boards/...")
+app.listen(3000);
