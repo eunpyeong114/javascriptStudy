@@ -94,6 +94,8 @@ function solution(n) {
     const sum = (acc + prev) % 1234567;
     prev = acc; // F(n-2)에 F(n-1)를 재할당
     return sum;
-    console.log(acc, prev);
   }, 1); // 1번째 피보나치 수를 초기값으로 사용
 }
+
+Number.isSafeInteger(); // => 해당 값이 컴퓨터가 표현할 수 있는 숫자인지 불린값으로 알려줌
+//                     //2**53 -1 까지 표현 가능
