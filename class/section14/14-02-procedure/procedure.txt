@@ -1,0 +1,21 @@
+# 데이터베이스 목록
+show databases
+;
+# 프로젝트 선택
+use myproject
+;
+# 프로시저(함수) 생성 [세미콜론 위치 주의]
+create procedure mydummydata()
+begin # 중괄호와 동일 역할
+	declare i int default 1;   #declare = const 개념 / default = 초기값 '=' 개념
+	while i <= 5000000 do # do 도 마찬가지로 중괄호 역할
+		insert into board(writer, title, contents) values('철수',rand(),'반갑습니다');
+		set i = i + 1;
+	end while;
+end;   # 중괄호와 동일 역할
+
+# 프로시저 목록 보기
+show procedure status
+;
+# 프로시저 실행
+call mydummydata();

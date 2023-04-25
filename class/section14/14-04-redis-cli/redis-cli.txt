@@ -1,0 +1,52 @@
+pang@MacBook-Pro-3 backend % docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS          PORTS                    NAMES
+7fa9a34e876d   redis:latest   "docker-entrypoint.s…"   About a minute ago   Up 56 seconds   0.0.0.0:6379->6379/tcp   backend-my-redis-1
+pang@MacBook-Pro-3 backend % docker exec -it 7fa9a34e876d /bin/bash
+root@7fa9a34e876d:/data# ls
+dump.rdb
+root@7fa9a34e876d:/data# ls -al 
+total 12
+drwxr-xr-x 2 redis redis 4096 Apr 21 08:14 .
+drwxr-xr-x 1 root  root  4096 Apr 21 08:13 ..
+-rw------- 1 redis redis   89 Apr 21 08:14 dump.rdb
+root@7fa9a34e876d:/data# redis-cli
+127.0.0.1:6379> keys *
+(empty array)
+127.0.0.1:6379> set qqq apple
+OK
+127.0.0.1:6379> keys *
+1) "qqq"
+127.0.0.1:6379> get qqq
+"apple"
+127.0.0.1:6379> ttl qqq
+(integer) -1
+127.0.0.1:6379> expire qqq 20
+(integer) 1
+127.0.0.1:6379> ttl 111
+(integer) -2
+127.0.0.1:6379> ttl qqq
+(integer) 14
+127.0.0.1:6379> ttl qqq
+(integer) 13
+127.0.0.1:6379> ttl qqq
+(integer) 11
+127.0.0.1:6379> ttl qqq
+(integer) 10
+127.0.0.1:6379> ttl qqq
+(integer) 8
+127.0.0.1:6379> get qqq
+"apple"
+127.0.0.1:6379> get qqq
+"apple"
+127.0.0.1:6379> get qqq
+"apple"
+127.0.0.1:6379> get qqq
+(nil)
+127.0.0.1:6379> get qqq
+(nil)
+127.0.0.1:6379> get qqq
+(nil)
+127.0.0.1:6379> get qqq
+(nil)
+127.0.0.1:6379> keys *
+(empty array)

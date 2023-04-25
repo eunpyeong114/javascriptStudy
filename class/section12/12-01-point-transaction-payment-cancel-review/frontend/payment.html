@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>결제페이지</title>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 아임포트 (신버전) / 아임포트 설치 src-->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <script>
+      const requestPay = () => {
+        const IMP = window.IMP; // 생략 가능 // 아임포트 다운받으면 window.IMP값이 자동할당 됨
+        IMP.init("imp77607565"); // 예: imp00000000a
+        IMP.request_pay(
+          {
+            pg: "kakaopay",
+            // merchant_uid: "ORD20180131-0000011", // 주문번호 // 중복되면 안됨
+            name: "노르웨이 회전 의자",
+            amount: 64900, // 숫자 타입
+            buyer_email: "gildong@gmail.com",
+            buyer_name: "홍길동",
+            buyer_tel: "010-4242-4242",
+            buyer_addr: "서울특별시 강남구 신사동",
+            buyer_postcode: "01181",
+          },
+          function (rsp) {
+            console.log(rsp);
+            console.log(rsp.pay_method);
+            // callback
+            if (rsp.success) {
+              // 결제 성공 시 로직
+              alert("결제에 성공했습니다!!");
+
+              // 백엔드에 결제 결과 전송할 것
+              axios.post(
+                "http://localhost:3000/graphql",
+                {
+                  // body  // playground에서 작성하는 내용들 //post 이기 때문에 body 존재
+                  // 무조건 query 적기 mutation일지라도
+                  query: `
+                  mutation {
+                    createPointTransaction(impUid:"${rsp.imp_uid}",amount:${rsp.paid_amount}){
+                      id
+                      impUid
+                      amount
+                      status
+                    }
+                  }
+                  `,
+                },
+                {
+                  // header
+                  headers: {
+                    Authorization:
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YWQ0OWM0Yi1jZjBhLTRkODctYjQxMS02MmI4ZTM3YzEyMTgiLCJpYXQiOjE2ODE4MjQ3MzAsImV4cCI6MTY4MTgyODMzMH0.wtdYNiDuo605vzxzSgg_p5QMoUVrmAhrM1X0AI77iok",
+                  },
+                }
+              );
+            } else {
+              // 결제 실패 시 로직
+              alert("결제에 실패했습니다!! 다시 시도해 주세요!!");
+            }
+          }
+        );
+      };
+    </script>
+  </head>
+  <body>
+    <button onclick="requestPay()">결제하기</button>
+  </body>
+</html>

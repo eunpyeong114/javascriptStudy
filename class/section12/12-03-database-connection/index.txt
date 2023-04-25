@@ -1,0 +1,105 @@
+DBeaver SQL문 사용법
+
+show databases;
+use myproject;
+use myproject;
+show tables
+;
+desc product 
+;
+#MYSQL에서는 큰따옴표("")와 작은따옴표('')가 큰 차이가 없으나, 다른 SQL DB는 대부분 작은따옴표를 사용 
+insert into product(id,name,description,price) 
+             values(uuid(),'마우스','정말 좋은 마우스입니다!!',15000)
+;
+
+insert into product(id,name,description,price) 
+             values(uuid(),'노트북','최신 맥북!!',20000)
+;
+
+insert into product(id,name,description,price) 
+             values(uuid(),'셔츠','깔끔한 셔츠입니다!!',30000)
+;
+
+delete from product 
+ WHERE name = '셔츠'
+ ;
+
+update product 
+   set price = 18000
+ where name = '마우스'
+ ;
+ 
+select * from product
+;
+
+#=========== 조인 =============
+select * from product_saleslocation
+;
+insert into product_saleslocation (id,address,addressDetail,lat,lng,meetingTime) 
+                           values (uuid(),'구로구','구로디지털단지역',37.2817,127.192387,'2023-01-10')
+;
+update product
+   set productSaleslocationId  = '0ac8a4b4-d2c1-11ed-9553-17875e42302c'
+   where name = '마우스'
+;
+
+update product
+   set productSaleslocationId  = '0ac8a4b4-d2c1-11ed-9553-17875e42302c'
+   where name = '마우스'
+;
+
+select id, name, price, address, addressDatail
+  from product , product_saleslocation
+ where product.productSaleslocationId  = product_saleslocation.id 
+;
+select p.id, name, price, address, addressDetail as '상세주소'
+  from product p, product_saleslocation ps
+ where p.productSaleslocationId  = ps.id 
+;
+
+#====================추가 기능들======================
+
+update product 
+   set isSoldout = TRUE 
+ WHERE name = '노트북'
+   and price = 20000
+ ;
+ update product 
+   set isSoldout = TRUE 
+ WHERE name = '노트북'
+    OR price = 20000
+ ;
+ 
+#================주석 쉽게 다는 방법=================== 컨트롤 + /
+#      => update / delete 에서는 가급적 사용하지 않기
+SELECT * from product 
+		WHERE 1 = 1
+-- 		  and price = 5000
+		  and name = '마우스'
+		  and isSoldout = FALSE 
+;
+# DB 보여줘
+show databases
+;
+# DB 변경해줘
+use myproject
+;
+# 테이블 보여줘
+show tables
+;
+# DB 설정값 보여줘(커넥션 최댓값 => max_connections)
+show variables
+;
+
+# 커넥션 최대값 바꿔줘
+set global max_connections = 15
+;
+# 지금 연결된 커넥션 갯수 보여줘(Tread_connected)
+show status
+;
+# 현재 연결된 커넥션 목록 보여줘
+show processlist
+;
+# 커넥션 끊어줘(강제종료)
+kill 12
+;
