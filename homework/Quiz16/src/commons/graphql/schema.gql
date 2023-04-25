@@ -1,0 +1,50 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Movie {
+  id: String!
+  name: String!
+  date: DateTime!
+  description: String!
+  time: String!
+  grade: Float!
+  nation: String!
+  rating: String!
+  isRunning: Boolean!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  fetchMovies: [Movie!]!
+  fetchMovie(movieId: String!): Movie!
+}
+
+type Mutation {
+  registerMovie(registerMovieInput: RegisterMovieInput!): Movie!
+  updateMovie(movieId: String!, updateMovieInput: UpdateMovieInput!): Movie!
+}
+
+input RegisterMovieInput {
+  name: String!
+  date: DateTime!
+  description: String!
+  time: String!
+  grade: Float!
+  nation: String!
+  rating: String!
+}
+
+input UpdateMovieInput {
+  name: String
+  date: DateTime
+  description: String
+  time: String
+  grade: Float
+  nation: String
+  rating: String
+}
