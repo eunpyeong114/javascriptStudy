@@ -1,0 +1,118 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Director {
+  id: String!
+  name: String!
+  movie: [Movie!]!
+}
+
+type Genre {
+  id: String!
+  name: String!
+  movie: [Movie!]!
+}
+
+type TicketingRate {
+  ticketingCount: Int!
+  ticketingRating: Float!
+}
+
+type Movie {
+  id: String!
+  name: String!
+  date: DateTime!
+  description: String!
+  time: String!
+  grade: Float!
+  nation: String!
+  rating: String!
+  isRunning: Boolean!
+  ticketingRate: TicketingRate!
+  genre: [Genre!]!
+  actor: [Actor!]!
+  director: [Director!]!
+  deleteAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Actor {
+  id: String!
+  name: String!
+  movie: [Movie!]!
+}
+
+type User {
+  id: String!
+  name: String!
+  phone: String!
+  address: String!
+  email: String!
+  SSN: String!
+  deleteAt: DateTime!
+}
+
+type Query {
+  fetchMovies: [Movie!]!
+  fetchMovie(movieId: String!): Movie!
+  fetchMoviesWithDeleted: [Movie!]!
+  fetchUser(userId: String!): User!
+  fetchUsers: [User!]!
+}
+
+type Mutation {
+  registerMovie(registerMovieInput: RegisterMovieInput!): Movie!
+  updateMovie(movieId: String!, updateMovieInput: UpdateMovieInput!): Movie!
+  deleteMovie(movieId: String!): Boolean!
+  restoreMovie(movieId: String!): Boolean!
+  createUser(email: String!, pwd: String!, name: String!, address: String!, phone: String!, SSN: String!): User!
+  updateUser(userId: String!, updateUserInput: UpdateUserInput!): User!
+  deleteUser(userId: String!): Boolean!
+  restoreUser(userId: String!): Boolean!
+}
+
+input RegisterMovieInput {
+  name: String!
+  date: DateTime!
+  description: String!
+  time: String!
+  grade: Float!
+  nation: String!
+  rating: String!
+  ticketingRate: RegisterTicketingRateInput!
+  genre: [String!]!
+  actor: [String!]!
+  director: [String!]!
+}
+
+input RegisterTicketingRateInput {
+  ticketingCount: Int!
+  ticketingRating: Float!
+}
+
+input UpdateMovieInput {
+  name: String
+  date: DateTime
+  description: String
+  time: String
+  grade: Float
+  nation: String
+  rating: String
+  ticketingRate: RegisterTicketingRateInput
+  genre: [String!]
+  actor: [String!]
+  director: [String!]
+}
+
+input UpdateUserInput {
+  name: String!
+  phone: String!
+  address: String!
+  email: String!
+  SSN: String!
+}
