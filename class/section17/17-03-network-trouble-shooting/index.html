@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>axios 연습하기</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const qqq = async () => {
+        //     const result1 = await axios.get(
+        //       "http://timeout-test.codebootcamp.co.kr:81/qqq"
+        //     );
+        //     console.log(result1);
+
+        const result2 = await axios.get(
+          "http://timeout-test.codebootcamp.co.kr:80/qqq"
+        );
+        console.log(result2);
+      };
+    </script>
+  </head>
+  <body>
+    <button onclick="qqq()">요청하기</button>
+  </body>
+</html>
