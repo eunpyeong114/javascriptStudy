@@ -16,8 +16,8 @@ export class FilesService {
 
     // 1-1) 스토리지 셋팅하기
     const storage = new Storage({
-      projectId: 'backend-383502', // 프로젝트 선택 클릭하면 볼 수 있음
-      keyFilename: 'backend-383502-918784f87412.json',
+      projectId: '구글클라우드id', // 프로젝트 선택 클릭하면 볼 수 있음
+      keyFilename: '구글클라우드키파일명',
     }).bucket('codecamp-pyeong-storage');
     // 1-2) 스토리지에 파일 올리기
     for (let i = 0; i < waitedFiles.length; i++) {
