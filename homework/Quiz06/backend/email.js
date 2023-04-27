@@ -22,7 +22,7 @@ export function getWelcomeTemplate({ name, phone, site }) {
                   <hr />
                   <div>이름: ${name}</div>
                   <div>전화번호: ${phone}</div>
-                  <div>좋아하는 사Dl트: ${site}</div>
+                  <div>좋아하는 사이트: ${site}</div>
                   <div>가입일: ${getToday()}</div> 
             </body>
         </html>

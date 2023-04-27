@@ -1,0 +1,28 @@
+version: '3.7'
+
+# 컴퓨터들
+services:
+  # 컴퓨터이름
+  my-backend:
+    build:
+      # 도커파일경로
+      context: .
+      # 도커파일명
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./src:/myfolder/src
+    #포트 포워딩 기능 - 는 배열을 의미 - 배열요소 추가가능
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env.prod
+
+  # 컴퓨터이름
+  # my-database:
+  #   # 도커파일 없이 이미지만 바로 생성
+  #   image: mysql:latest
+  #   environment:
+  #     MYSQL_DATABASE: 'myhomework'
+  #     MYSQL_ROOT_PASSWORD: 'root'
+  #   ports:
+  #     - 3306:3306
