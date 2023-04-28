@@ -88,3 +88,177 @@ function solution(n, words) {
   });
   return !result ? [0, 0] : [player, turn];
 }
+
+/*
+    하이픈 추가하기
+
+    공백이 존재하지 않는 영어 문자열이 주어집니다.
+    해당 문자열에는 연속으로 반복되는 알파벳들이 존재합니다.
+    연속되는 알파벳을 탐색하고, 해당되는 두 알파벳 사이에 하이픈(-)을 추가한 문자열을 리턴해주세요.
+
+    - 문자열은 모두 소문자로 구성되어 있습니다.
+
+    입출력 예시
+    ------------------------------
+    input
+    ------------------------------
+
+    case1:
+      'seoullaarizona'
+    
+    case2:
+      'toasttoasttoast'
+
+    ------------------------------
+    output
+    ------------------------------
+
+    case1:
+      'seoul-la-arizona'
+
+    case2:
+      'toast-toast-toast'
+
+*/
+
+function addDash(str) {
+  // 여기에서 작업하세요.
+  str = str.split("");
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === str[i + 1]) {
+      str.splice(i + 1, 0, "-");
+    }
+  }
+  return str.join("");
+}
+
+/**
+    크리스마스 선물
+
+    숫자가 담긴 배열 childs가 주어집니다.
+
+    모든 집에 한 명씩의 아이가 살고 있는 동네가 있습니다.
+    아이들은 올해 몇 개의 착한일을 했는지에 따라 곧 다가오는 크리스마스에 선물을 받게 됩니다.
+
+    childs 배열에는 각 아이들이 올해 몇번의 착한 일을 했는지, 그 숫자가 담겨 있습니다.
+    모든 아이가 아래 주어진 조건에 맞춰 올바른 개수의 선물을 받을 수 있도록 준비해야 합니다.
+
+    - 각 아이들은 최소 하나의 선물은 받아야 합니다.
+    - 이웃하고 있는 아이보다 착한 일을 더 많이 한 아이는 이웃한 아이보다는 더 많은 선물을 받아야 합니다.
+
+    산타가 조건에 맞춰 아이들에게 선물을 나눠줄 때, 최소 몇개의 선물이 필요한지 그 개수를 리턴해 주세요.
+
+
+    예를 들어, 예봄, 여진, 다슬, 정훈, 네명의 아이가 각각 3개, 2개, 4개, 0개의 착한 일을 했다면,
+    
+    [ 3, 2, 4, 0 ]
+
+    위와 같은 배열이 주어집니다.
+    예봄(3)은 하나의 선물을 받습니다. {예봄: 1, 여진: 0, 다슬: 0, 정훈: 0}
+    여진(2)은 하나의 선물을 받습니다. {예봄: 1, 여진: 1, 다슬: 0, 정훈: 0}
+    예봄(3)은 이웃한 여진(2)보다 착한 일을 더 많이 했으므로 여진보다는 더 많은 선물을 받아야 합니다. {예봄: 2, 여진: 1, 다슬: 0, 정훈: 0}
+    다슬(4)은 이웃한 여진(2)보다 착한 일을 더 많이 했으므로 여진보다는 더 많은 선물을 받아야 합니다. {예봄: 2, 여진: 1, 다슬: 2, 정훈: 0}
+    정훈(0)은 착한 일을 하진 않았지만 하나의 선물을 받습니다. {예봄: 2, 여진: 1, 다슬: 2, 정훈: 1}
+    정훈(0)이 하나의 선물을 받았지만, 다슬(4)은 이미 이웃인 정훈, 여진보다 많은 선물을 받았으므로 더 이상의 선물은 받지 않습니다. {예봄: 2, 여진: 1, 다슬: 2, 정훈: 1}
+
+    결과적으로 산타가 준비해야 하는 최소 개수의 선물은 6개이므로 숫자 6을 리턴해야 합니다.
+
+    - childs 배열의 요소는 모두 숫자입니다.
+
+    입출력 예시
+    ------------------------------
+    input
+    ------------------------------
+
+    case1:
+      christmasPresent([1, 0, 2])
+
+    case2:
+      christmasPresent([1, 2, 2])
+
+    ------------------------------
+    output
+    ------------------------------
+
+    case1:
+      5
+
+    case2:
+      4
+ */
+
+const christmasPresent = function (childs) {
+  // 여기에서 작업하세요.
+  const result = Array(childs.length).fill(1);
+  // console.log(result)
+  let answer = 0;
+  let restart;
+  for (let i = 0; i < childs.length; i++) {
+    if (childs[i] > childs[i + 1] && result[i] === result[i + 1]) {
+      result[i]++;
+
+      if (childs[i - 1] > childs[i] && result[i] === result[i - 1]) {
+        while (result[i - 1] <= result[i]) {
+          result[i - 1]++;
+        }
+        i = restart;
+      }
+    } else if (childs[i] < childs[i + 1]) {
+      result[i + 1] += result[i];
+      restart = i;
+    }
+  }
+  for (let i = 0; i < result.length; i++) {
+    answer += result[i];
+  }
+  return answer;
+};
+
+/*
+    문자열 회전
+
+    두개의 문자열 str과 goal이 주어집니다.
+    str의 가장 뒷 문자를 맨 앞으로 보내는 과정만을 반복해
+    goal과 완전히 같은 문자열이 될 수 있는지 확인한 뒤,
+    가능하다면 true를, 불가능하다면 false를 리턴해 주세요.
+
+    예를 들어, str = 'abcde' goal = 'deabc'라면,
+    위에서 언급한 과정을 두번 반복해 str이 goal과 완전히 같아질 수 있으므로 true를 리턴합니다.
+
+    - 문자열 str, goal의 요소는 모두 알파벳 소문자입니다.
+    - 두 문자열 내에 공백은 존재하지 않습니다.
+
+    입출력 예시
+    ------------------------------
+    input
+    ------------------------------
+
+    case1:
+      rotateString('abcde', 'deabc')
+
+    case2:
+      rotateString('abcde', 'cdeba')
+
+    ------------------------------
+    output
+    ------------------------------
+
+    case1:
+      true
+
+    case2:
+      false
+*/
+
+function rotateString(str, goal) {
+  // 여기에서 작업하세요.
+  let answer = false;
+  for (let i = 0; i < goal.length; i++) {
+    let back = str.slice(goal.length - (i + 1));
+    let front = str.slice(0, goal.length - 1 - i);
+    if (back + front === goal) {
+      return (answer = true);
+    }
+  }
+  return answer;
+}
