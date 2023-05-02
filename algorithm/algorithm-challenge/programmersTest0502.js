@@ -162,4 +162,5 @@ function solution(record) {
     }
     return acc;
   }, []);
+  return answer;
 }
