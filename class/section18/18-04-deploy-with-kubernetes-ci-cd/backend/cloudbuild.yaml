@@ -1,0 +1,29 @@
+# 1단계 => docker-compose -f docker-compose.prod.yaml build
+# 2단계 => docker-compose -f docker-compose.prod.yaml push
+# 3단계 => kubectl set image
+#         deployment/my-backend-project-nestjs
+#         my-backend-project-nestjs-sha256-1=asia.gcr.io/backend-385002/my-backend-project-nestjs:0.7
+
+steps:
+  # 1단계
+  - name: docker/compose:1.29.0 # 구글 컴퓨터에 docker-compose 다운
+    args:
+      - -f
+      - class/section18/18-04-deploy-with-kubernetes-ci-cd/backend/docker-compose.prod.yaml
+      - build
+  # 2단계
+  - name: docker/compose:1.29.0 # 구글 컴퓨터에 docker-compose 다운
+    args:
+      - -f
+      - class/section18/18-04-deploy-with-kubernetes-ci-cd/backend/docker-compose.prod.yaml
+      - push
+  # 3단계
+  - name: gcr.io/cloud-builders/kubectl # kubectl 다운
+    args:
+      - set
+      - image
+      - deployment/my-backend-project-nestjs
+      - my-backend-project-nestjs-sha256-1=asia.gcr.io/backend-385002/my-backend-project-nestjs:0.7
+    env: # 구글 컴퓨터(shell) 접속
+      - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
+      - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1
